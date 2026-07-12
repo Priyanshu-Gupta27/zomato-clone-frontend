@@ -1,6 +1,6 @@
 import { MenuItem, Restaurant } from '../context/AppContext';
 
-const API_URL = 'http://localhost:8001/api';
+const API_URL = 'import.meta.env.VITE_API_URL/api';
 
 type ApiProduct = {
   id: number;
