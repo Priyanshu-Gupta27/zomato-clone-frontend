@@ -1,6 +1,6 @@
 import { MenuItem, Restaurant } from '../context/AppContext';
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api`;
+const API_URL = "https://zomato-clone-production-446d.up.railway.app/api";
 
 type ApiProduct = {
   id: number;
