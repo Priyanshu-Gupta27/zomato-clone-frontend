@@ -1,11 +1,14 @@
 /**
  * The public address of the API server.  Vite replaces VITE_API_URL during the
- * build; the fallback keeps the deployed frontend working if the Vercel
- * environment variable has not been added yet.
+ * build.  Set it in Vercel to the public backend address (without /api).
  */
-const configuredApiUrl = import.meta.env.VITE_API_URL || 'https://zomato-clone-production-446d.up.railway.app';
+const configuredApiUrl = import.meta.env.VITE_API_URL;
 
-export const API_ORIGIN = configuredApiUrl.replace(/\/$/, '').replace(/\/api$/, '');
+if (!configuredApiUrl) {
+  console.error('Missing VITE_API_URL. Add your deployed backend URL in Vercel environment variables.');
+}
+
+export const API_ORIGIN = (configuredApiUrl || '').replace(/\/$/, '').replace(/\/api$/, '');
 export const API_URL = `${API_ORIGIN}/api`;
 
 export async function getErrorMessage(response: Response, fallback: string) {
