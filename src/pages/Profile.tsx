@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, CreditCard, Heart, Package, Bell, LogOut, ChevronRight, Camera } from 'lucide-react';
+import { API_ORIGIN } from '../lib/apiConfig';
 
 const getInitials = (name?: string) => {
   if (!name) return 'JD';
@@ -19,7 +20,7 @@ export default function Profile({ user, onLogout }: { user: any | null; onLogout
     name: storedUser?.name || 'Zamato User',
     email: storedUser?.email || 'No email added',
     phone: storedUser?.mobile || 'No mobile added',
-    image: storedUser?.image ? `import.meta.env.VITE_API_URL${storedUser.image}` : '',
+    image: storedUser?.image ? `${API_ORIGIN}${storedUser.image}` : '',
     addresses: [
       {
         id: 1,

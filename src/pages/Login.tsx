@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react'
+import { API_URL, getErrorMessage } from '../lib/apiConfig';
 
 function Login({ onAuth }: { onAuth: (user: any, token: string) => void }) {
   const [mobile, setMobile] = useState('');
@@ -14,7 +15,7 @@ function Login({ onAuth }: { onAuth: (user: any, token: string) => void }) {
          password,
      };
      try {
-       const response = await fetch('import.meta.env.VITE_API_URL/api/users/login', {
+       const response = await fetch(`${API_URL}/users/login`, {
            method: 'POST',
            headers: {
                'Content-Type': 'application/json',
@@ -22,10 +23,11 @@ function Login({ onAuth }: { onAuth: (user: any, token: string) => void }) {
            body: JSON.stringify(userData),
        });
   
-          const ans = await response.json();
           if (!response.ok) {
-              throw new Error(ans.error || 'Login failed');
+              throw new Error(await getErrorMessage(response, 'Login failed'));
           }
+
+          const ans = await response.json();
 
           onAuth(ans.user, ans.token);
           alert('User logged in successfully');

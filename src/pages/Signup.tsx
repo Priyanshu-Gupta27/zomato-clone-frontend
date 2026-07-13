@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { API_URL, getErrorMessage } from '../lib/apiConfig';
 interface SignupProps {
   onAuth: (user: any, token: string) => void;
 }
@@ -27,19 +28,16 @@ function Signup({ onAuth }: SignupProps) {
      }
 
    try {
-     const response = await fetch('import.meta.env.VITE_API_URL/api/users/signup', {
+     const response = await fetch(`${API_URL}/users/signup`, {
          method: 'POST',
          body: formData,
      });
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(await getErrorMessage(response, 'Signup failed'));
         }
 
         const ans = await response.json();
-        if (!response.ok) {
-            throw new Error(ans.error || 'Signup failed');
-        }
 
         alert('User signed up successfully');
 
